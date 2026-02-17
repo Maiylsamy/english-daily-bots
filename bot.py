@@ -7,8 +7,13 @@ GEMINI_API_KEY = "AIzaSyDIckYdktw-LoNBTjsTwQdMqVc30HNVamQ"
 quote = requests.get("https://zenquotes.io/api/random").json()[0]["q"]
 
 prompt = f"""
-Explain this sentence in very simple English for a beginner.
-Also translate it into Tamil.
+You are an English tutor.
+
+Explain the sentence in very simple English.
+Translate it into Tamil.
+Extract 2–3 important vocabulary words from the sentence.
+Give their meanings in simple English.
+Give one example sentence for each word.
 
 Sentence:
 {quote}
@@ -16,6 +21,8 @@ Sentence:
 Format:
 Simple Meaning:
 Tamil:
+Vocabulary:
+Example:
 """
 
 gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
