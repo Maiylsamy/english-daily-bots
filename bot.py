@@ -1,5 +1,5 @@
 import requests
-
+import json
 BOT_TOKEN = "8501664348:AAE-aR3sQvoQfYJXT8s9bY0sd_xPKU7qIOE"
 CHAT_ID = "1342013802"
 GEMINI_API_KEY = "AIzaSyDIckYdktw-LoNBTjsTwQdMqVc30HNVamQ"
@@ -9,11 +9,10 @@ quote = requests.get("https://zenquotes.io/api/random").json()[0]["q"]
 prompt = f"""
 You are an English tutor.
 
-Explain the sentence in very simple English.
-Translate it into Tamil.
-Extract 2–3 important vocabulary words from the sentence.
-Give their meanings in simple English.
-Give one example sentence for each word.
+1. Explain the sentence in simple English.
+2. Translate to Tamil.
+3. Create one multiple choice quiz.
+4. Provide correct answer.
 
 Sentence:
 {quote}
@@ -21,26 +20,27 @@ Sentence:
 Format:
 Simple Meaning:
 Tamil:
-Vocabulary:
-Example:
+Quiz:
+Answer:
 """
 
-gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
+gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
 
-payload = {
-    "contents": [
-        {
-            "parts": [{"text": prompt}]
-        }
-    ]
-}
+payload = {"contents": [{"parts": [{"text": prompt}]}]}
 
 response = requests.post(gemini_url, json=payload).json()
-print(response)
-meaning = response["candidates"][0]["content"]["parts"][0]["text"]
 
-message = f"📘 Sentence:\n{quote}\n\n{meaning}"
+text = response["candidates"][0]["content"]["parts"][0]["text"]
+
+# Extract answer (simple approach)
+answer = text.split("Answer:")[-1].strip()
+
+# Save state
+state = {"answer": answer}
+with open("quiz_state.json", "w") as f:
+    json.dump(state, f)
+
+message = f"📘 Sentence:\n{quote}\n\n{text}"
 
 telegram_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-
 requests.post(telegram_url, data={"chat_id": CHAT_ID, "text": message})
