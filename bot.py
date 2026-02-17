@@ -8,7 +8,7 @@ quote = requests.get("https://zenquotes.io/api/random").json()[0]["q"]
 
 prompt = f"Explain this sentence in very simple English for a beginner:\n\n{quote}"
 
-gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
 
 payload = {
     "contents": [
@@ -19,7 +19,7 @@ payload = {
 }
 
 response = requests.post(gemini_url, json=payload).json()
-
+print(response)
 meaning = response["candidates"][0]["content"]["parts"][0]["text"]
 
 message = f"📘 Sentence:\n{quote}\n\n🧠 Simple Meaning:\n{meaning}"
