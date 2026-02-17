@@ -6,7 +6,17 @@ GEMINI_API_KEY = "AIzaSyDIckYdktw-LoNBTjsTwQdMqVc30HNVamQ"
 
 quote = requests.get("https://zenquotes.io/api/random").json()[0]["q"]
 
-prompt = f"Explain this sentence in very simple English for a beginner:\n\n{quote}"
+prompt = f"""
+Explain this sentence in very simple English for a beginner.
+Also translate it into Tamil.
+
+Sentence:
+{quote}
+
+Format:
+Simple Meaning:
+Tamil:
+"""
 
 gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
 
@@ -22,7 +32,7 @@ response = requests.post(gemini_url, json=payload).json()
 print(response)
 meaning = response["candidates"][0]["content"]["parts"][0]["text"]
 
-message = f"📘 Sentence:\n{quote}\n\n🧠 Simple Meaning:\n{meaning}"
+message = f"📘 Sentence:\n{quote}\n\n{meaning}"
 
 telegram_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
