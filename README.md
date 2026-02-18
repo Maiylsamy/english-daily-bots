@@ -50,3 +50,5 @@ This project demonstrates:
 * Learning analytics
 ---
  📷 Screenshots
+ <img width="516" height="486" alt="Screenshot_1" src="https://github.com/user-attachments/assets/05558662-c89b-4312-82e4-689759ffaf0c" />
+
