@@ -29,10 +29,6 @@ I built an AI-powered automation system that delivers a daily English learning p
 ```
 GitHub Scheduler → Python → Gemini → Telegram
 ```
-# Quiz Interaction Workflow
-```
-User Reply → GitHub Polling → AI → Feedback
-```
 ---
  🎯 Impact
 This project demonstrates:
@@ -50,5 +46,6 @@ This project demonstrates:
 * Learning analytics
 ---
  📷 Screenshots
- <img width="516" height="486" alt="Screenshot_1" src="https://github.com/user-attachments/assets/05558662-c89b-4312-82e4-689759ffaf0c" />
+ <img width="756" height="1674" alt="bot" src="https://github.com/user-attachments/assets/711d0b50-dd4b-485b-afcb-494ae6a77a36" />
+
 
