@@ -2,8 +2,7 @@ import requests
 import json
 BOT_TOKEN = "8501664348:AAE-aR3sQvoQfYJXT8s9bY0sd_xPKU7qIOE"
 CHAT_ID = "1342013802"
-GEMINI_API_KEY = "AIzaSyAp84j-arnCLtXSIu_JhQZp7EhzT6X4I30"
-
+GEMINI_API_KEY = "AIzaSyB_6odljHmnPoWONZNeY-2-7wi2DNGe2gw"
 quote = requests.get("https://zenquotes.io/api/random").json()[0]["q"]
 
 prompt = f"""
