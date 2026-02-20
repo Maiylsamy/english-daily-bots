@@ -9,32 +9,25 @@ updates = requests.get(url).json()
 try:
     with open("quiz_state.json") as f:
         state = json.load(f)
-        correct = state.get("answer", "").lower()
+        correct = str(state.get("answer", "")).strip().lower()
 except:
     correct = ""
-    
+
 for item in updates["result"]:
     if "message" in item:
         chat_id = item["message"]["chat"]["id"]
         text = item["message"].get("text", "").strip().lower()
 
         if text in ["a", "b", "c", "d"]:
-            try:
-                with open("quiz_state.json") as f:
-                    state = json.load(f)
-                    correct = str(state.get("answer", "")).strip().lower()
-            except:
-                correct = ""
-
             if text == correct:
-                reply = "Correct! Great job."
+                reply = "✅ Correct! Great job."
             else:
-                reply = f"Wrong. Correct answer is {correct.upper()}."
+                reply = f"❌ Wrong. Correct answer is {correct.upper()}."
 
             requests.post(
                 f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
                 data={"chat_id": chat_id, "text": reply},
             )
 
-        #KEEP THIS HERE (inside loop, after processing)
+        # offset
         requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates?offset={item['update_id']+1}")
