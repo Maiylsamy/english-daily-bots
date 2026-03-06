@@ -1,9 +1,9 @@
 import requests
 import json
-BOT_TOKEN = "8501664348:AAE-aR3sQvoQfYJXT8s9bY0sd_xPKU7qIOE"
-CHAT_ID = "1342013802"
-GEMINI_API_KEY = "AIzaSyB_6odljHmnPoWONZNeY-2-7wi2DNGe2gw"
-
+import os
+BOT_TOKEN = os.environ["BOT_TOKEN"]
+CHAT_ID = os.environ["CHAT_ID"]
+GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 prompt = """
 You are an English tutor.
 
@@ -56,11 +56,8 @@ payload = {
 }
 
 response = requests.post(gemini_url, json=payload).json()
-
+answer = text.strip()
 text = response["candidates"][0]["content"]["parts"][0]["text"]
-
-# Extract answer
-answer = text.split("Answer:")[-1].strip()
 
 # Save state
 state = {"answer": answer}
