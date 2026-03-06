@@ -18,3 +18,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run bot
         run: python bot.py
+env:
+  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+  CHAT_ID: ${{ secrets.CHAT_ID }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
